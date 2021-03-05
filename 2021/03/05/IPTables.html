@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      IP Tables &middot; Elywin Michael Lukeera
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/elywin.github.io/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/elywin.github.io/favicon.png" />
+<link rel="shortcut icon" href="/elywin.github.io/favicon.ico" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/elywin.github.io/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Elywin Michael Lukeera
+      </a>
+    </div>
+    <p class="lead">Full-Stack developer, Lets talk Reactjs, nodejs, mongoDB, laravel</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/elywin.github.io/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+
+  
+    
+      <a class="page-link "
+          href="/elywin.github.io/about/">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+
+  <a id="subscribe-link"
+     class="icon" title="Subscribe" aria-label="Subscribe"
+     href="/elywin.github.io/feed.xml">
+    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <circle cx="6.18" cy="17.82" r="2.18"/>
+    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+</svg>
+  </a>
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <!-- Optional additional links to insert for icons links -->
+</nav>
+
+  <p>
+  &copy; 2021.
+  <a href="/elywin.github.io/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">IP Tables</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">05 Mar 2021</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <p><strong>What is IP-Tables, and How Does It Work?</strong><br />
+iptables is a utility program (uses policy chains) that allows a system administrator to configure rules of the Linux kernel firewall to allow or block traffic.</p>
+
+<p><strong>IP-Tables architecture</strong><br />
+Each table contains a number of built-in chains and may also contain user-defined chains. Each chain is a list of rules which can match a set of packets. Each rule specifies what to do with a packet that matches.</p>
+
+<p>IP-Tables consists of different components as listed below:</p>
+
+<p><strong>Chains:</strong> Chains are a list of rules responsible for packets, they allow the administrator to control where in a packet’s delivery path a rule will be evaluated.</p>
+
+<p>There are 5 chains in iptables and each is responsible for a specific task:</p>
+<ol>
+  <li><strong>Prerouting:</strong> This chain decides what happens to a packet as soon as it arrives at the network interface, altering the packet, dropping the packet, or doing nothing at all.</li>
+  <li><strong>Input:</strong> This chain is responsible for opening or blocking a port.</li>
+  <li><strong>Forward:</strong> This chain is responsible for packet forwarding as the name suggests.</li>
+  <li><strong>Output:</strong> This chain is in charge or all your browsing, with this chain you can allow a port to send or not to send any of your outbound traffic especially if you’re not sure what port each application is communicating through.</li>
+  <li><strong>Postrouting:</strong> This cahin allows altering packets after they exit the OUTPUT chain just before leaving the computer..</li>
+</ol>
+
+<p><strong>Tables:</strong> <br />
+ The table list contains filter, nat, mangle, raw and security. Each table is responsible for a specific task as we are going to see below:<br /></p>
+<ol>
+  <li><strong>Filter table:</strong> This is the default table.It contains the built-in chains INPUT, FORWARD, and OUTPUT. In this table is where you decide whether a packet is allowed in/out of your computer. If you want to block a port to stop receiving anything, this is where you do it.</li>
+  <li><strong>Nat table:</strong> This table is responsible for creating new connection when a packet that creates a new connection is encountered.  It consists of three built-in chains: PREROUTING, OUTPUT, and POSTROUTING.</li>
+  <li><strong>Mangle table:</strong> This table is responsible for specialized packets only. it changes or ulters something inside the packet either before coming in or leaving. It consists of PREROUTING, OUTPUT, INPUT, FORWARD, and POSTROUTING built-in chains.</li>
+  <li><strong>Raw:</strong> This table is deals with the raw packet, it for tracking the connection state. It contains the following built-in chains: PREROUTING, OUTPUT.</li>
+  <li><strong>Security:</strong> It is responsible for securing your computer after the filter table. Which consists of SELinux a security tool on modern linux distributions.</li>
+</ol>
+
+<p><strong>Targets:</strong> 
+Targets specify where a packet should go using either iptables’ own targets or it’s extensions’ target. Targets are divided into terminating and non-terminating.</p>
+
+<p>Terminating targets, decide the result of the matched packet and it will stop there, the packet won’t be matched against any other rules. The commonly used terminating targets are:</p>
+
+<p><strong>ACCEPT:</strong> This enables the iptables to accept the packet.<br />
+<strong>DROP:</strong> iptables drops the packet. To anyone trying to connect to your system, it would appear like the system didn’t even exist.<br />
+<strong>REJECT:</strong> iptables rejects the packet. It sends a connection reset packet in case of TCP, or a destination host unreachable packet in case of <a href="https://www.geeksforgeeks.org/user-datagram-protocol-udp/">UDP</a> or <a href="https://www.cloudflare.com/en-gb/learning/ddos/glossary/internet-control-message-protocol-icmp/">ICMP</a>.</p>
+
+<p>On the other hand, there are non-terminating targets, which keep matching other rules even if a match was found for
+example the built-in <strong>LOG</strong> target which logs about a packet when recieved in the kernel logs but the iptables keeps matching it with other rules.</p>
+
+<p><strong>A quick refresher, What is firewall?</strong><br />
+ Firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules established as a barrier between a trusted network and an untrusted network, such as the Internet.<br /></p>
+
+<p><strong>How to use IP-Tables?</strong><br />
+Now that we know what IP-Tables are and with that quick reminder about what a firewall is, lets see how to use them.<br /></p>
+<blockquote>
+  <p><strong>Note:</strong> run these commands as super user.</p>
+</blockquote>
+
+<p>To list the current configuration:</p>
+
+<blockquote>
+  <p>$sudo iptables -L -n -v –line-numbers</p>
+</blockquote>
+
+<p>Where;
+<strong>-L</strong> for list.<br />
+<strong>-n</strong> for numeric output.<br />
+<strong>-v</strong> for verbose.<br /></p>
+
+<p>To stop every single packet from going in/out of your system. This stops any other packet that you explicitly specify is going to be transferred.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -P INPUT DROP
+$sudo iptables -P OUTPUT DROP
+$sudo iptables -P FORWARD DROP
+</code></pre></div></div>
+
+<p><strong>-P</strong> for policy(INPUT, OUTPUT, FORWARD).</p>
+
+<p>To allow packets inside your loopback interface to travel without problem.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A INPUT -i lo -j ACCEPT
+$sudo iptables -A OUTPUT -o lo -j ACCEPT
+</code></pre></div></div>
+
+<p><strong>-A</strong> for append. You can also insert, delete or update with different switches.<br />
+<strong>-i</strong> for input interface. The interface that packets arrive at.<br />
+<strong>-o</strong> for output interface. The interface the packets travel through.<br />
+<strong>-j</strong> for jump. You can choose to accept, reject, drop, log etc. with a packet.<br /></p>
+
+<p>To allow DNS &amp; DHCP packets to travel in &amp; out your computer.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A INPUT -p udp --dport 67 -j ACCEPT
+$sudo iptables -A INPUT -p tcp --dport 67 -j ACCEPT
+$sudo iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+$sudo iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
+$sudo iptables -A OUTPUT -p udp --dport 68 -j ACCEPT
+$sudo iptables -A OUTPUT -p tcp --dport 68 -j ACCEPT
+</code></pre></div></div>
+
+<p><strong>-p</strong> for protocol.</p>
+<blockquote>
+  <p><strong>Note:</strong> For larger packets TCP is used.</p>
+</blockquote>
+
+<p><strong>–dport</strong> for destination port.</p>
+
+<p>To open SSH connection when your computer is a client.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A OUTPUT -p tcp --dport 22 -j ACCEPT
+$sudo iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</code></pre></div></div>
+
+<p><strong>-m</strong> is a switch to use iptables’ extension (<a href="http://manpages.ubuntu.com/manpages/hirsute/man8/iptables-extensions.8.html">iptables-extension</a>)</p>
+
+<p>To allow SSH connection when your computer is a server.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+$sudo iptables -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</code></pre></div></div>
+
+<p>To be able to ping other computers, and let other computers ping yours, allow icmp packets.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A INPUT -p icmp -j ACCEPT
+$sudo iptables -A OUTPUT -p icmp -j ACCEPT
+</code></pre></div></div>
+
+<p>To browse web pages.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+$sudo iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+</code></pre></div></div>
+<p>This will open both HTTP and HTTPS traffic to go out of your system.</p>
+
+<p>To apply NAT to your iptables.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -t nat -A OUTPUT -p tcp --dport 22 --destination destination_IP -j DNAT --to-destination 123.123.123.123:4040
+</code></pre></div></div>
+
+<p><strong>–destination</strong> flag will filter packets based on the destination IP address.</p>
+
+<p>All outgoing traffic from your computer heading to IP address destination_IP port 22 will be sent to IP address 123.123.123.123 port 4040. This makes it possible for a NAT in the destination network to be accessible from outside that network.</p>
+
+<p>To forward every traffic from a specific interface to be routed through your computer without changing anything inside packet.</p>
+
+<p>runtime configuration:<br /></p>
+<blockquote>
+  <p>$sudo sysctl net.ipv4.ip_forward=1</p>
+</blockquote>
+
+<p>persistency across reboots:<br /></p>
+<blockquote>
+  <p>$sudo echo net.ipv4.ip_forward = 1 &gt; /etc/sysctl.d/30-ip-forward.conf</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo iptables -A FORWARD -i wlan0 -j ACCEPT
+$sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+</code></pre></div></div>
+
+<p>Those are but a few commands to get started with IP-Tables, to get more about them:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ man iptables
+$ man iptables-extension
+</code></pre></div></div>
+
+
+    
+
+
+
+<div class="post-tags">
+  
+</div>
+  </div>
+
+ 
+  <section class="related">
+    <h2>Related Posts</h2>
+    <ul class="posts-list">
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2021/02/13/unixPermissions.html">
+              Unix/Linux Permissions
+              <small>13 Feb 2021</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2021/01/06/composer.html">
+              Composer PHP dependency manager
+              <small>06 Jan 2021</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2020/12/15/installJekyll.html">
+              Install Jekyll (Ubuntu)
+              <small>15 Dec 2020</small>
+            </a>
+          </h3>
+        </li>
+      
+    </ul>
+  </section>
+</div>
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>

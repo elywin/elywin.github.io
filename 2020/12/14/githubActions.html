@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      How to Set Up CI/CD With GitHub Actions for Jekyll &middot; Elywin Michael Lukeera
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/elywin.github.io/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/elywin.github.io/favicon.png" />
+<link rel="shortcut icon" href="/elywin.github.io/favicon.ico" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/elywin.github.io/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Elywin Michael Lukeera
+      </a>
+    </div>
+    <p class="lead">Full-Stack developer, Lets talk Reactjs, nodejs, mongoDB, laravel</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/elywin.github.io/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+
+  
+    
+      <a class="page-link "
+          href="/elywin.github.io/about/">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+
+  <a id="subscribe-link"
+     class="icon" title="Subscribe" aria-label="Subscribe"
+     href="/elywin.github.io/feed.xml">
+    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <circle cx="6.18" cy="17.82" r="2.18"/>
+    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+</svg>
+  </a>
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <!-- Optional additional links to insert for icons links -->
+</nav>
+
+  <p>
+  &copy; 2021.
+  <a href="/elywin.github.io/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">How to Set Up CI/CD With GitHub Actions for Jekyll</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">14 Dec 2020</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <p>GitHub Actions makes it easy to automate all your software workflows, with world-class CI/CD. Build, test, and deploy your code right from GitHub.</p>
+
+<p><strong>Continuous Integration (CI)</strong><br />
+Continuous integration (CI) allows different developers to upload and merge code changes in the same repository branch on a frequent basis.</p>
+
+<p><strong>Continuous Deployment (CD)</strong><br />
+In continuous deployment (CD), the new code that’s been introduced and that’s passed the CI process is automatically implemented in production.</p>
+
+<p>First and foremost we need a Jekyll project hosted on GitHub preferably on the master branch. When the Action builds your site, the contents of the destination directory will be automatically pushed to the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch with a commit, ready to be published.</p>
+
+<blockquote>
+  <p>The Action we’re using here will create a gh-pages branch on every successful deploy.</p>
+</blockquote>
+
+<p><strong>Setting up the Action</strong><br />
+GitHub Actions are registered for a repository by using a <code class="language-plaintext highlighter-rouge">YAML</code> file inside the directory path <code class="language-plaintext highlighter-rouge">.github/workflows</code>.</p>
+
+<blockquote>
+  <p>note the dot at the start <code class="language-plaintext highlighter-rouge">.github/workflows</code>.</p>
+</blockquote>
+
+<p>Create a YAML workflow file called <code class="language-plaintext highlighter-rouge">github-pages.yml</code> in the workflow directory. These are the contents of the file:
+<span style="backgroundcolor:blue"></span></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Build and deploy Jekyll site to GitHub Pages</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">master</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">github-pages</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-16.04</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">helaili/jekyll-action@2.0.1</span>
+        <span class="na">env</span><span class="pi">:</span>
+          <span class="na">JEKYLL_PAT</span><span class="pi">:</span> <span class="s">$</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>The build is triggered using <code class="language-plaintext highlighter-rouge">on,push</code> condition to the master branch only preventing the Action from overwriting the gh-pages branch.</li>
+  <li>The name of the job matches our YAML filename: <code class="language-plaintext highlighter-rouge">github-pages</code>.</li>
+  <li>The checkout action takes care of cloning your repository.</li>
+  <li><code class="language-plaintext highlighter-rouge">helaili/jekyll-action@2.0.0.</code> specifies action and version number that handles the build and deploy.</li>
+  <li>set a reference to a secret environment variable for the action to use: <code class="language-plaintext highlighter-rouge">JEKYLL_PAT</code>.</li>
+</ul>
+
+<p><strong>Permission to push to gh-pages</strong></p>
+
+<p>Providing permissions to push to gh-pages branch.You need to create a GitHub authentication token on your GitHub profile, then set it as an environment variable in your build using Secrets.<br /></p>
+
+<p>Create authentication token: -</p>
+
+<ol>
+  <li>On your GitHub profile, under Settings.</li>
+  <li>go to Developer settings.</li>
+  <li>Select Personal Access Tokens.</li>
+  <li>Generate new token.</li>
+  <li>Give the token a name like “GitHub Actions”.</li>
+  <li>Check <code class="language-plaintext highlighter-rouge">repo</code> checkbox to give access to the entire repository scope.(necessary for the action to commit to the gh-pages branch).</li>
+  <li>Generate token and copy the token.</li>
+  <li>Go to your <code class="language-plaintext highlighter-rouge">repository’s Settings</code> and then the <code class="language-plaintext highlighter-rouge">Secrets</code> tab.</li>
+  <li>Select new repository secret.</li>
+  <li>Create a token named JEKYLL_PAT.</li>
+  <li>Paste the token(copied earlier) and save.</li>
+</ol>
+
+<p>On pushing any local changes onto master, the action will be triggered and the build will start.To watch the progress and see any build errors, check on the build status using the <code class="language-plaintext highlighter-rouge">Action</code> tab on your repository.</p>
+
+<p>If all goes well, all steps will be green and the built assets will now exist on the gh-pages branch. n a successful build, GitHub Pages will publish the site stored on the repository gh-pages branch.</p>
+
+<blockquote>
+  <p>you do not need to setup a gh-pages branch or enable GitHub Pages, as the action will take care of this for you. <code class="language-plaintext highlighter-rouge">For private repositories, you’ll have to upgrade to a paid plan</code>.</p>
+</blockquote>
+
+<p>When you need to make further changes to the site, commit to master and push. The workflow will build and deploy your site again.</p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">Do not to edit the gh-pages branch directly, as any changes will be lost on the next successful deploy from the Action</code></strong>.</p>
+</blockquote>
+
+
+    
+
+
+
+<div class="post-tags">
+  
+</div>
+  </div>
+
+ 
+  <section class="related">
+    <h2>Related Posts</h2>
+    <ul class="posts-list">
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2021/03/05/IPTables.html">
+              IP Tables
+              <small>05 Mar 2021</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2021/02/13/unixPermissions.html">
+              Unix/Linux Permissions
+              <small>13 Feb 2021</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/elywin.github.io/2021/01/06/composer.html">
+              Composer PHP dependency manager
+              <small>06 Jan 2021</small>
+            </a>
+          </h3>
+        </li>
+      
+    </ul>
+  </section>
+</div>
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
