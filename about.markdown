@@ -44,4 +44,4 @@ Elywin Michael Lukeera, A full-stack Developer , a lifelong student of society s
 <td><a href="mailto:lukeeraelywin@gmail.com"><img src="../svg/gmail.svg" width="35" height="35"></a></td>
 </tr></table>
 
-![visitors](https://visitor-badge.glitch.me/badge?page_id=page.id)
+![visitors](https://visitor-badge.glitch.me/badge?page_id={{ page.id }})
